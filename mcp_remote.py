@@ -20,8 +20,10 @@ image = (
     modal.Image.debian_slim(python_version="3.11")
     .apt_install("ffmpeg", "curl")
     .pip_install(
-        "yt-dlp",
-        "curl_cffi",  # For browser impersonation (TikTok, Instagram, etc.)
+        # Pinned so Modal rebuilds the image when it changes (unpinned, it stayed on 2026.02.21
+        # for nine months). Bump this line to update. The curl-cffi extra brings a curl_cffi
+        # version yt-dlp supports, for browser impersonation (TikTok, Instagram, etc.).
+        "yt-dlp[default,curl-cffi]==2026.10.26",
         "brotli",     # For compression support
         "openai-whisper",
         "torch",
